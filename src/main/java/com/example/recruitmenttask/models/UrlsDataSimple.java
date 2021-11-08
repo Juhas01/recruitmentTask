@@ -1,19 +1,17 @@
 package com.example.recruitmenttask.models;
 
-
-import javax.persistence.*;
-import java.sql.Blob;
-
-@Entity
-public class UrlData {
-    @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false)
+public class UrlsDataSimple {
     private Long id;
-    private String url;
-    @Lob
-    private Blob file;
 
+    private String url;
+
+    public UrlsDataSimple() {
+    }
+
+    public UrlsDataSimple(Long id, String url) {
+        this.id = id;
+        this.url = url;
+    }
 
     public Long getId() {
         return id;
@@ -29,13 +27,5 @@ public class UrlData {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public Blob getFile() {
-        return file;
-    }
-
-    public void setFile(Blob file) {
-        this.file = file;
     }
 }

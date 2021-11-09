@@ -14,6 +14,8 @@ public class UrlData {
     @Lob
     private Blob file;
 
+    private Boolean isDownloaded;
+
     public UrlData() {
     }
 
@@ -44,5 +46,13 @@ public class UrlData {
 
     public void setFile(Blob file) {
         this.file = file;
+    }
+
+    public Boolean getDownloaded() {
+        return isDownloaded;
+    }
+
+    public void setDownloaded(Boolean downloaded) {
+        isDownloaded = downloaded;
     }
 }

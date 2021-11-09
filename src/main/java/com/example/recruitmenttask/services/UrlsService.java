@@ -31,7 +31,7 @@ public class UrlsService implements IUrlsService{
 
     @Override
     public UrlsDataSimple addUrl(UrlsDataSimple urlToAdd) {
-        UrlData urlDataAddedToDb = urlsRepository.addUrl(urlsMapper.mapFromSimple(urlToAdd));
+        UrlData urlDataAddedToDb = urlsRepository.saveOrUpdateUrlData(urlsMapper.mapFromSimple(urlToAdd));
         downloadManager.addToDownloadQueue(urlDataAddedToDb);
         return urlsMapper.mapToSimple(urlDataAddedToDb);
     }

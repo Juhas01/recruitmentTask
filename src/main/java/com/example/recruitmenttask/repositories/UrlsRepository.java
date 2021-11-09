@@ -24,7 +24,7 @@ public class UrlsRepository implements IUrlsRepository{
 
     @Override
     @Transactional
-    public UrlData addUrl(UrlData urlData) {
+    public UrlData saveOrUpdateUrlData(UrlData urlData) {
         entityManager.persist(urlData);
         entityManager.flush();
         return urlData;

@@ -52,6 +52,8 @@ public class DownloadManager implements IDownloadManager{
         try {
             URL url = new URL(urlData.getUrl());
             urlsRepository.downloadDataFromUrlAndSave(url, urlData);
+            urlData.setDownloaded(true);
+            urlsRepository.saveOrUpdateUrlData(urlData);
         } catch (IOException e) {
             e.printStackTrace();
             DownloadingError downloadingError = new DownloadingError();

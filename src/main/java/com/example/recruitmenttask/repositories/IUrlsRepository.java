@@ -12,7 +12,7 @@ public interface IUrlsRepository {
 
     public List<UrlsDataSimple> getAllUrlsSimple();
 
-    public UrlData addUrl(UrlData urlData);
+    public UrlData saveOrUpdateUrlData(UrlData urlData);
 
     void downloadDataFromUrlAndSave(URL url, UrlData urlData) throws IOException;
 

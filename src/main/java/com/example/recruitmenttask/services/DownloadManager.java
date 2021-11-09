@@ -7,7 +7,6 @@ import com.example.recruitmenttask.repositories.IUrlsRepository;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -51,7 +50,9 @@ public class DownloadManager implements IDownloadManager{
     private void downloadUrlData(UrlData urlData){
         try {
             URL url = new URL(urlData.getUrl());
+            System.out.println("downloading data to url with id: " + urlData.getId() + " started");
             urlsRepository.downloadDataFromUrlAndSave(url, urlData);
+            System.out.println("downloading data to url with id: " + urlData.getId() + " finished");
             urlData.setDownloaded(true);
             urlsRepository.saveOrUpdateUrlData(urlData);
         } catch (IOException e) {

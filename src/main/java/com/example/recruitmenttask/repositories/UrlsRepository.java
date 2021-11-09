@@ -2,7 +2,7 @@ package com.example.recruitmenttask.repositories;
 
 import com.example.recruitmenttask.models.DownloadingError;
 import com.example.recruitmenttask.models.UrlData;
-import com.example.recruitmenttask.models.UrlsDataSimple;
+import com.example.recruitmenttask.models.UrlDataSimple;
 import org.hibernate.engine.jdbc.BlobProxy;
 
 import javax.persistence.EntityManager;
@@ -18,14 +18,18 @@ public class UrlsRepository implements IUrlsRepository{
     private EntityManager entityManager;
 
     @Override
-    public List<UrlsDataSimple> getAllUrlsSimple(){
-        return entityManager.createQuery("select new com.example.recruitmenttask.models.UrlsDataSimple(url.id, url.url) from UrlData url").getResultList();
+    public List<UrlDataSimple> getAllUrlsSimple(){
+        return entityManager.createQuery("select new com.example.recruitmenttask.models.UrlDataSimple(url.id, url.url, url.isDownloaded) from UrlData url").getResultList();
     }
 
     @Override
     @Transactional
     public UrlData saveOrUpdateUrlData(UrlData urlData) {
-        entityManager.persist(urlData);
+        if (urlData.getId()!=null){
+            entityManager.merge(urlData);
+        }else {
+            entityManager.persist(urlData);
+        }
         entityManager.flush();
         return urlData;
     }

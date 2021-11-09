@@ -1,30 +1,20 @@
 package com.example.recruitmenttask.models;
 
+public class UrlDataSimple {
 
-import javax.persistence.*;
-import java.sql.Blob;
-
-@Entity
-public class UrlData {
-    @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false)
     private Long id;
     private String url;
-    @Lob
-    private Blob file;
-
     private Boolean isDownloaded;
 
-    public UrlData() {
+    public UrlDataSimple() {
     }
 
-    public UrlData(Long id, String url) {
+    public UrlDataSimple(Long id, String url) {
         this.id = id;
         this.url = url;
     }
 
-    public UrlData(Long id, String url, Boolean isDownloaded) {
+    public UrlDataSimple(Long id, String url, Boolean isDownloaded) {
         this.id = id;
         this.url = url;
         this.isDownloaded = isDownloaded;
@@ -44,14 +34,6 @@ public class UrlData {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public Blob getFile() {
-        return file;
-    }
-
-    public void setFile(Blob file) {
-        this.file = file;
     }
 
     public Boolean getDownloaded() {

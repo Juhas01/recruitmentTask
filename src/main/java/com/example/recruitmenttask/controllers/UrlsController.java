@@ -1,6 +1,6 @@
 package com.example.recruitmenttask.controllers;
 
-import com.example.recruitmenttask.models.UrlsDataSimple;
+import com.example.recruitmenttask.models.UrlDataSimple;
 import com.example.recruitmenttask.services.IUrlsService;
 
 import javax.inject.Inject;
@@ -30,7 +30,7 @@ public class UrlsController {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Response addUrl(UrlsDataSimple urlToAdd){
+    public Response addUrl(UrlDataSimple urlToAdd){
         return Response.ok(urlsService.addUrl(urlToAdd)).build();
     }
 

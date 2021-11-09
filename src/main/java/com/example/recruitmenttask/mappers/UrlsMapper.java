@@ -1,15 +1,15 @@
 package com.example.recruitmenttask.mappers;
 
 import com.example.recruitmenttask.models.UrlData;
-import com.example.recruitmenttask.models.UrlsDataSimple;
+import com.example.recruitmenttask.models.UrlDataSimple;
 
 public class UrlsMapper {
 
-    public UrlData mapFromSimple(UrlsDataSimple urlsDataSimple){
-        return new UrlData(urlsDataSimple.getId(), urlsDataSimple.getUrl());
+    public UrlData mapFromSimple(UrlDataSimple urlDataSimple){
+        return new UrlData(urlDataSimple.getId(), urlDataSimple.getUrl(), urlDataSimple.getDownloaded());
     }
 
-    public UrlsDataSimple mapToSimple(UrlData urlData){
-        return new UrlsDataSimple(urlData.getId(), urlData.getUrl());
+    public UrlDataSimple mapToSimple(UrlData urlData){
+        return new UrlDataSimple(urlData.getId(), urlData.getUrl(), urlData.getDownloaded());
     }
 }

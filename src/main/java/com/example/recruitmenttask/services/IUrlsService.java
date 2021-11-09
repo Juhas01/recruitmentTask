@@ -1,12 +1,12 @@
 package com.example.recruitmenttask.services;
 
-import com.example.recruitmenttask.models.UrlsDataSimple;
+import com.example.recruitmenttask.models.UrlDataSimple;
 
 import java.util.List;
 
 public interface IUrlsService {
 
-    public List<UrlsDataSimple> getAllUrlsSimple();
+    public List<UrlDataSimple> getAllUrlsSimple();
 
-    public UrlsDataSimple addUrl(UrlsDataSimple urlToAdd);
+    public UrlDataSimple addUrl(UrlDataSimple urlToAdd);
 }

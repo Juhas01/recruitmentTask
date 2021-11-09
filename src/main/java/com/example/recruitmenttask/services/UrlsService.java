@@ -1,9 +1,9 @@
 package com.example.recruitmenttask.services;
 
 import com.example.recruitmenttask.mappers.UrlsMapper;
+import com.example.recruitmenttask.models.UrlData;
 import com.example.recruitmenttask.models.UrlsDataSimple;
 import com.example.recruitmenttask.repositories.IUrlsRepository;
-import com.example.recruitmenttask.repositories.UrlsRepository;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -12,14 +12,16 @@ public class UrlsService implements IUrlsService{
 
     private IUrlsRepository urlsRepository;
     private UrlsMapper urlsMapper;
+    private IDownloadManager downloadManager;
 
     public UrlsService() {
     }
 
     @Inject
-    public UrlsService(IUrlsRepository urlsRepository, UrlsMapper urlsMapper) {
+    public UrlsService(IUrlsRepository urlsRepository, UrlsMapper urlsMapper, IDownloadManager downloadManager) {
         this.urlsRepository = urlsRepository;
         this.urlsMapper = urlsMapper;
+        this.downloadManager = downloadManager;
     }
 
     @Override
@@ -29,6 +31,8 @@ public class UrlsService implements IUrlsService{
 
     @Override
     public UrlsDataSimple addUrl(UrlsDataSimple urlToAdd) {
-        return urlsMapper.mapToSimple(urlsRepository.addUrl(urlsMapper.mapFromSimple(urlToAdd)));
+        UrlData urlDataAddedToDb = urlsRepository.addUrl(urlsMapper.mapFromSimple(urlToAdd));
+        downloadManager.addToDownloadQueue(urlDataAddedToDb);
+        return urlsMapper.mapToSimple(urlDataAddedToDb);
     }
 }

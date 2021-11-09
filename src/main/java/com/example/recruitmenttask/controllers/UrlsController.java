@@ -1,8 +1,7 @@
 package com.example.recruitmenttask.controllers;
 
-import com.example.recruitmenttask.services.IUrlsService;
-import com.example.recruitmenttask.services.UrlsService;
 import com.example.recruitmenttask.models.UrlsDataSimple;
+import com.example.recruitmenttask.services.IUrlsService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;

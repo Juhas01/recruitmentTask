@@ -8,15 +8,17 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
-public class UrlsRepository {
+public class UrlsRepository implements IUrlsRepository{
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Override
     public List<UrlsDataSimple> getAllUrlsSimple(){
         return entityManager.createQuery("select new com.example.recruitmenttask.models.UrlsDataSimple(url.id, url.url) from UrlData url").getResultList();
     }
 
+    @Override
     @Transactional
     public UrlData addUrl(UrlData urlData) {
         entityManager.persist(urlData);

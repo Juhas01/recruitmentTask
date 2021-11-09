@@ -1,6 +1,7 @@
 package com.example.recruitmenttask.controllers;
 
-import com.example.recruitmenttask.Services.UrlsService;
+import com.example.recruitmenttask.services.IUrlsService;
+import com.example.recruitmenttask.services.UrlsService;
 import com.example.recruitmenttask.models.UrlsDataSimple;
 
 import javax.inject.Inject;
@@ -10,17 +11,18 @@ import javax.ws.rs.core.Response;
 @Path("/url")
 public class UrlsController {
 
-    private UrlsService urlsService;
+    private IUrlsService urlsService;
 
     public UrlsController() {
     }
 
     @Inject
-    public UrlsController(UrlsService urlsService) {
+    public UrlsController(IUrlsService urlsService) {
         this.urlsService = urlsService;
     }
 
     @GET
+    @Path("/all")
     @Produces("application/json")
     public Response getAllUrls(){
         return Response.ok(urlsService.getAllUrlsSimple()).build();

@@ -1,11 +1,14 @@
 package com.example.recruitmenttask.services;
 
+import com.example.recruitmenttask.exceptionMappers.URlDataNotFoundException;
 import com.example.recruitmenttask.mappers.UrlsMapper;
 import com.example.recruitmenttask.models.UrlData;
 import com.example.recruitmenttask.models.UrlDataSimple;
 import com.example.recruitmenttask.repositories.IUrlsRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Matchers;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -55,6 +58,16 @@ public class UrlsServiceTest {
         //then
         verify(urlsRepositoryMock).saveOrUpdateListOfUrls(any());
         verify(downloadManagerMock).addListToDownloadingQueue(urlsFromRepo);
+    }
+
+    @Test
+    public void shouldThrowURlDataNotFoundException_When_UrlsRepoReturnsgetUrlDataByIdReturnsNull(){
+        //given
+        when(urlsRepositoryMock.getUrlDataById(any())).thenReturn(null);
+        UrlsService urlsService = new UrlsService(urlsRepositoryMock, new UrlsMapper(), downloadManagerMock);
+        //when
+        Assertions.assertThrows(URlDataNotFoundException.class, () -> urlsService.getUrlById(1L));
+
     }
 
 }

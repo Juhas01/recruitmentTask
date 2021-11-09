@@ -1,5 +1,6 @@
 package com.example.recruitmenttask.services;
 
+import com.example.recruitmenttask.exceptionMappers.URlDataNotFoundException;
 import com.example.recruitmenttask.mappers.UrlsMapper;
 import com.example.recruitmenttask.models.UrlData;
 import com.example.recruitmenttask.models.UrlDataSimple;
@@ -41,7 +42,11 @@ public class UrlsService implements IUrlsService{
 
     @Override
     public UrlDataSimple getUrlById(Long urlId) {
-        return urlsMapper.mapToSimple(urlsRepository.getUrlDataById(urlId));
+        UrlData urlDataById = urlsRepository.getUrlDataById(urlId);
+        if(urlDataById==null){
+            throw new URlDataNotFoundException("Url data with id: " + urlId + " not exists");
+        }
+        return urlsMapper.mapToSimple(urlDataById);
     }
 
     @Override

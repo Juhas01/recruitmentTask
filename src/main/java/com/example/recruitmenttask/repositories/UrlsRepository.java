@@ -49,4 +49,23 @@ public class UrlsRepository implements IUrlsRepository{
         entityManager.persist(downloadingError);
         entityManager.flush();
     }
+
+    @Override
+    public UrlData getUrlDataById(Long urlId) {
+        return entityManager.find(UrlData.class, urlId);
+    }
+
+    @Override
+    @Transactional
+    public List<UrlData> saveOrUpdateListOfUrls(List<UrlData> urlData) {
+        for (UrlData url : urlData) {
+            if (url.getId()!=null){
+                entityManager.merge(url);
+            }else {
+                entityManager.persist(url);
+            }
+        }
+        entityManager.flush();
+        return urlData;
+    }
 }

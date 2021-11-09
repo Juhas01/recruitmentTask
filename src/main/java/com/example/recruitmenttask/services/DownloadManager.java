@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 @Singleton
@@ -38,7 +39,15 @@ public class DownloadManager implements IDownloadManager{
 
     }
 
+    @Override
+    public void addListToDownloadingQueue(List<UrlData> urlsToAdd) {
+        for (UrlData url : urlsToAdd             ) {
+            addToDownloadQueue(url);
+        }
+    }
+
     private void startDownloading() {
+        isDownloading = true;
        new Thread(() ->{
            while (!downloadingQueue.isEmpty()){
                downloadUrlData(downloadingQueue.poll());

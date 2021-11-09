@@ -17,4 +17,8 @@ public interface IUrlsRepository {
     void downloadDataFromUrlAndSave(URL url, UrlData urlData) throws IOException;
 
     void addDownloadingError(DownloadingError downloadingError);
+
+    UrlData getUrlDataById(Long urlId);
+
+    List<UrlData> saveOrUpdateListOfUrls(List<UrlData> urlData);
 }

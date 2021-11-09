@@ -7,6 +7,7 @@ import com.example.recruitmenttask.repositories.IUrlsRepository;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UrlsService implements IUrlsService{
 
@@ -36,5 +37,18 @@ public class UrlsService implements IUrlsService{
         UrlData urlDataAddedToDb = urlsRepository.saveOrUpdateUrlData(urlsMapper.mapFromSimple(urlToAdd));
         downloadManager.addToDownloadQueue(urlDataAddedToDb);
         return urlsMapper.mapToSimple(urlDataAddedToDb);
+    }
+
+    @Override
+    public UrlDataSimple getUrlById(Long urlId) {
+        return urlsMapper.mapToSimple(urlsRepository.getUrlDataById(urlId));
+    }
+
+    @Override
+    public List<UrlDataSimple> addListOfUrls(List<UrlDataSimple> urlsToAdd) {
+        List<UrlData> urlsFromSimple = urlsToAdd.stream().map(url -> urlsMapper.mapFromSimple(url)).collect(Collectors.toList());
+        List<UrlData> urlsAdded = urlsRepository.saveOrUpdateListOfUrls(urlsFromSimple);
+        downloadManager.addListToDownloadingQueue(urlsAdded);
+        return urlsAdded.stream().map(url -> urlsMapper.mapToSimple(url)).collect(Collectors.toList());
     }
 }

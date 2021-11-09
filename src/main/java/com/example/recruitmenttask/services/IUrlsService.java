@@ -9,4 +9,8 @@ public interface IUrlsService {
     public List<UrlDataSimple> getAllUrlsSimple();
 
     public UrlDataSimple addUrl(UrlDataSimple urlToAdd);
+
+    UrlDataSimple getUrlById(Long urlId);
+
+    List<UrlDataSimple> addListOfUrls(List<UrlDataSimple> urlsToAdd);
 }

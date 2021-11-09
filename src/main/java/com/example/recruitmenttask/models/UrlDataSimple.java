@@ -9,6 +9,10 @@ public class UrlDataSimple {
     public UrlDataSimple() {
     }
 
+    public UrlDataSimple(String url) {
+        this.url = url;
+    }
+
     public UrlDataSimple(Long id, String url) {
         this.id = id;
         this.url = url;

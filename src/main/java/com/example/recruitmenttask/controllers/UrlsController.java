@@ -6,6 +6,7 @@ import com.example.recruitmenttask.services.IUrlsService;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/url")
 public class UrlsController {
@@ -34,4 +35,18 @@ public class UrlsController {
         return Response.ok(urlsService.addUrl(urlToAdd)).build();
     }
 
+    @GET
+    @Path("/{id}")
+    @Produces("application/json")
+    public Response getUrlById(@PathParam("id") Long urlId){
+        return Response.ok(urlsService.getUrlById(urlId)).build();
+    }
+
+    @POST
+    @Path("/list")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response addListOfUrls(List<UrlDataSimple> urlsToAdd){
+        return Response.ok(urlsService.addListOfUrls(urlsToAdd)).build();
+    }
 }

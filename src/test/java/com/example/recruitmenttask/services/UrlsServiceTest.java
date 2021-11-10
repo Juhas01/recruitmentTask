@@ -5,14 +5,13 @@ import com.example.recruitmenttask.mappers.UrlsMapper;
 import com.example.recruitmenttask.models.UrlData;
 import com.example.recruitmenttask.models.UrlDataSimple;
 import com.example.recruitmenttask.repositories.IUrlsRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -61,13 +60,26 @@ public class UrlsServiceTest {
     }
 
     @Test
-    public void shouldThrowURlDataNotFoundException_When_UrlsRepoReturnsgetUrlDataByIdReturnsNull(){
+    public void shouldThrowURlDataNotFoundException_When_UrlsRepoGetUrlDataByIdReturnsNull(){
         //given
         when(urlsRepositoryMock.getUrlDataById(any())).thenReturn(null);
         UrlsService urlsService = new UrlsService(urlsRepositoryMock, new UrlsMapper(), downloadManagerMock);
         //when
-        Assertions.assertThrows(URlDataNotFoundException.class, () -> urlsService.getUrlById(1L));
+        assertThrows(URlDataNotFoundException.class, () -> urlsService.getUrlById(1L));
+    }
 
+    @Test
+    public void shouldReturnUrlDataSimpleMappedFromUrldDataFromRepo_When_RepoReturnsUrlDataById(){
+        //given
+        UrlData urlDataGiven = new UrlData(1L, "test.url", true);
+        when(urlsRepositoryMock.getUrlDataById(any())).thenReturn(urlDataGiven);
+        UrlsService urlsService = new UrlsService(urlsRepositoryMock, new UrlsMapper(), downloadManagerMock);
+        //when
+        UrlDataSimple urlById = urlsService.getUrlById(1L);
+        //then
+        assertEquals(urlById.getUrl(), urlDataGiven.getUrl());
+        assertEquals(urlById.getId(), urlDataGiven.getId());
+        assertEquals(urlById.getDownloaded(), urlDataGiven.getDownloaded());
     }
 
 }

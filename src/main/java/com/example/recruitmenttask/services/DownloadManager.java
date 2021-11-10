@@ -41,7 +41,7 @@ public class DownloadManager implements IDownloadManager{
 
     @Override
     public void addListToDownloadingQueue(List<UrlData> urlsToAdd) {
-        for (UrlData url : urlsToAdd             ) {
+        for (UrlData url : urlsToAdd) {
             addToDownloadQueue(url);
         }
     }

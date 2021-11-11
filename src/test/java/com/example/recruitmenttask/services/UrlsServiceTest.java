@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Matchers.any;
@@ -80,6 +81,38 @@ public class UrlsServiceTest {
         assertEquals(urlById.getUrl(), urlDataGiven.getUrl());
         assertEquals(urlById.getId(), urlDataGiven.getId());
         assertEquals(urlById.getDownloaded(), urlDataGiven.getDownloaded());
+    }
+
+    @Test
+    public void shouldReturnUrlsSimpleFromDownloadingQueue_When_getDownloadingQueueCalled(){
+        //given
+        UrlData urlData1 = new UrlData(1L, "test1.url");
+        UrlData urlData2 = new UrlData(2L, "test2.url");
+        Queue<UrlData> urlsQueue = new LinkedList<>();
+        urlsQueue.add(urlData1);
+        urlsQueue.add(urlData2);
+        when(downloadManagerMock.getDownloadingQueue()).thenReturn(urlsQueue);
+        UrlsService urlsService = new UrlsService(urlsRepositoryMock, new UrlsMapper(), downloadManagerMock);
+        //when
+        List<UrlDataSimple> downloadingQueue = urlsService.getDownloadingQueue();
+        UrlDataSimple urlDataSimple1 = downloadingQueue.get(0);
+        UrlDataSimple urlDataSimple2 = downloadingQueue.get(1);
+        //then
+        assertEquals(urlData1.getId(), urlDataSimple1.getId());
+        assertEquals(urlData1.getUrl(), urlDataSimple1.getUrl());
+        assertEquals(urlData2.getId(), urlDataSimple2.getId());
+        assertEquals(urlData2.getUrl(), urlDataSimple2.getUrl());
+    }
+
+    @Test
+    public void shouldReturnEmptyList_When_noUrlsAddedAndGetDownloadingQueueCalled(){
+        //given
+        when(downloadManagerMock.getDownloadingQueue()).thenReturn(null);
+        UrlsService urlsService = new UrlsService(urlsRepositoryMock, new UrlsMapper(), downloadManagerMock);
+        //when
+        List<UrlDataSimple> downloadingQueue = urlsService.getDownloadingQueue();
+        //then
+        assertEquals(0, downloadingQueue.size());
     }
 
 }

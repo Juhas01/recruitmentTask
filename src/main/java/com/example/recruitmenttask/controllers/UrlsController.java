@@ -49,4 +49,11 @@ public class UrlsController {
     public Response addListOfUrls(List<UrlDataSimple> urlsToAdd){
         return Response.ok(urlsService.addListOfUrls(urlsToAdd)).build();
     }
+
+    @GET
+    @Path("/downloading")
+    @Produces("application/json")
+    public Response getDownloadingQueue(){
+        return Response.ok(urlsService.getDownloadingQueue()).build();
+    }
 }

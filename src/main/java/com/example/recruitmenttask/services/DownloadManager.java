@@ -46,6 +46,11 @@ public class DownloadManager implements IDownloadManager{
         }
     }
 
+    @Override
+    public Queue<UrlData> getDownloadingQueue() {
+        return downloadingQueue;
+    }
+
     private void startDownloading() {
         isDownloading = true;
        new Thread(() ->{

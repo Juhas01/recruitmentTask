@@ -7,7 +7,9 @@ import com.example.recruitmenttask.models.UrlDataSimple;
 import com.example.recruitmenttask.repositories.IUrlsRepository;
 
 import javax.inject.Inject;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.stream.Collectors;
 
 public class UrlsService implements IUrlsService{
@@ -55,5 +57,14 @@ public class UrlsService implements IUrlsService{
         List<UrlData> urlsAdded = urlsRepository.saveOrUpdateListOfUrls(urlsFromSimple);
         downloadManager.addListToDownloadingQueue(urlsAdded);
         return urlsAdded.stream().map(url -> urlsMapper.mapToSimple(url)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UrlDataSimple> getDownloadingQueue() {
+        Queue<UrlData> downloadingQueue = downloadManager.getDownloadingQueue();
+        if(downloadingQueue==null){
+            return new LinkedList<>();
+        }
+        return downloadingQueue.stream().map(url -> urlsMapper.mapToSimple(url)).collect(Collectors.toList());
     }
 }

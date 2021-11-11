@@ -13,4 +13,6 @@ public interface IUrlsService {
     UrlDataSimple getUrlById(Long urlId);
 
     List<UrlDataSimple> addListOfUrls(List<UrlDataSimple> urlsToAdd);
+
+    List<UrlDataSimple> getDownloadingQueue();
 }

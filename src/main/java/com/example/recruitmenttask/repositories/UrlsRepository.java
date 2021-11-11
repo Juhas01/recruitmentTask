@@ -68,4 +68,9 @@ public class UrlsRepository implements IUrlsRepository{
         entityManager.flush();
         return urlData;
     }
+
+    @Override
+    public List<UrlData> getNotDownloadedUrls() {
+        return entityManager.createQuery("select url from UrlData url where url.isDownloaded=false order by url.id").getResultList();
+    }
 }

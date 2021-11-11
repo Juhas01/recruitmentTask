@@ -21,4 +21,6 @@ public interface IUrlsRepository {
     UrlData getUrlDataById(Long urlId);
 
     List<UrlData> saveOrUpdateListOfUrls(List<UrlData> urlData);
+
+    List<UrlData> getNotDownloadedUrls();
 }
